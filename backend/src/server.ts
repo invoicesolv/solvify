@@ -1,15 +1,24 @@
 import express from 'express';
-import { query } from './db';
+import { sql } from './db';
 
 const app = express();
 const port = process.env.PORT || 3001;
 
-app.use(express.json());
+interface Account {
+  id: number;
+  name: string;
+  // Add other fields as necessary
+}
 
-app.get('/api/accounts', async (req, res) => {
+app.get('/accounts', async (req, res) => {
   try {
-    const result = await query('SELECT * FROM accounts');
-    res.json(result.rows);
+    const result = await sql`SELECT * FROM accounts`;
+    const accounts: Account[] = result.map((row: any) => ({
+      id: row.id,
+      name: row.name,
+      // Map other fields as necessary
+    }));
+    res.json(accounts);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });

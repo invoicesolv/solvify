@@ -1,10 +1,11 @@
 export const runtime = 'edge';
 
-import { sql } from '../backend/src/db'; // Adjust the path as needed
+import { sql } from '../../backend/src/db';
 
 export default async function handler(request: Request) {
   try {
     // Your API logic here
+    // Example: Query the database
     const result = await sql`SELECT * FROM your_table`;
 
     return new Response(JSON.stringify(result), {

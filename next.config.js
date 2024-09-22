@@ -1,15 +1,13 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        fs: false,
-        net: false,
-        tls: false,
-        crypto: false,
-      };
-    }
+const nextConfig = {
+  reactStrictMode: true,
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': path.resolve(__dirname, 'src'),
+    };
     return config;
   },
 };
+
+module.exports = nextConfig;

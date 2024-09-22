@@ -1,7 +1,15 @@
 import React from 'react';
 
-export const Table: React.FC<React.TableHTMLAttributes<HTMLTableElement>> = (props) => {
-  return <table {...props} />;
+interface TableProps extends React.HTMLAttributes<HTMLTableElement> {
+  children: React.ReactNode;
+}
+
+export const Table: React.FC<TableProps> = ({ children, ...props }) => {
+  return <table {...props}>{children}</table>
+};
+
+export const TableBody = ({ children }: { children: React.ReactNode }) => {
+  return <tbody>{children}</tbody>
 };
 
 export const TableHeader: React.FC<React.HTMLAttributes<HTMLTableSectionElement>> = (props) => {
@@ -14,10 +22,6 @@ export const TableRow: React.FC<React.HTMLAttributes<HTMLTableRowElement>> = (pr
 
 export const TableHead: React.FC<React.ThHTMLAttributes<HTMLTableCellElement>> = (props) => {
   return <th {...props} />;
-};
-
-export const TableBody: React.FC<React.HTMLAttributes<HTMLTableSectionElement>> = (props) => {
-  return <tbody {...props} />;
 };
 
 export const TableCell: React.FC<React.TdHTMLAttributes<HTMLTableCellElement>> = (props) => {

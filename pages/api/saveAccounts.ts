@@ -1,33 +1,30 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { query } from '../../backend/src/db';
+export const runtime = 'edge';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Method not allowed' });
-  }
+import { sql } from '../../backend/src/db';
 
+export default async function handler(request: Request) {
   try {
-    const { customers, ejKundCustomers } = req.body;
+    const data = await request.json();
 
-    // Save customers
-    for (const customer of customers) {
-      await query(
-        'INSERT INTO accounts (account, type, amount, accountValue) VALUES ($1, $2, $3, $4) ON CONFLICT (account) DO UPDATE SET type = $2, amount = $3, accountValue = $4',
-        [customer.account, customer.type, customer.amount, customer.accountValue]
-      );
+    // Assuming data is an array of accounts
+    for (const account of data) {
+      await sql`
+        INSERT INTO accounts (id, name, email)
+        VALUES (${account.id}, ${account.name}, ${account.email})
+      `;
     }
 
-    // Save ejKundCustomers
-    for (const customer of ejKundCustomers) {
-      await query(
-        'INSERT INTO accounts (account, type, amount, accountValue) VALUES ($1, $2, $3, $4) ON CONFLICT (account) DO UPDATE SET type = $2, amount = $3, accountValue = $4',
-        [customer.account, customer.type, customer.amount, customer.accountValue]
-      );
-    }
-
-    res.status(200).json({ message: 'Data saved successfully' });
+    return new Response(JSON.stringify({ message: 'Accounts saved successfully' }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
   } catch (error) {
-    console.error('Error saving accounts:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    return new Response(
+      JSON.stringify({ error: 'Error saving accounts', details: error }),
+      {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
   }
 }

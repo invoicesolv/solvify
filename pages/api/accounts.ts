@@ -1,14 +1,23 @@
 // pages/api/accounts.ts
 
-import { NextApiRequest, NextApiResponse } from 'next';
-import { query } from '../../backend/src/db';
+export const runtime = 'edge';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+import { sql } from '../../backend/src/db';
+
+export default async function handler() {
   try {
-    const result = await query('SELECT id, account, type, amount, accountValue, priority, industry, epost FROM accounts');
-    res.status(200).json(result.rows);
+    const result = await sql`SELECT * FROM accounts`;
+    return new Response(JSON.stringify(result), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
   } catch (error) {
-    console.error('Error fetching accounts:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    return new Response(
+      JSON.stringify({ error: 'Error fetching accounts', details: error }),
+      {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
   }
 }
