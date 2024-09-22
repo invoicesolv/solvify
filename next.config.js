@@ -8,10 +8,8 @@ module.exports = {
         net: false,
         tls: false,
         crypto: false,
-        pg: false,
-        'pg-native': false
-      }
+      };
     }
-    return config
+    return config;
   },
-}
+};
