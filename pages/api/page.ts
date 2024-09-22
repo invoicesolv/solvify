@@ -1,18 +1,14 @@
-export const runtime = 'edge';
+import { NextRequest } from 'next/server';
+import { sql } from '../../backend/src/db';
 
-import { NextApiRequest, NextApiResponse } from 'next';
-import { query } from '../../backend/src/db.mjs';
+export const config = {
+  runtime: 'experimental-edge',
+};
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === 'GET') {
-    try {
-      const result = await query('SELECT * FROM your_table', []);
-      res.status(200).json(result.rows);
-    } catch (error) {
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
-  } else {
-    res.setHeader('Allow', ['GET']);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
-  }
+export default async function handler(req: NextRequest) {
+  const result = await sql`SELECT * FROM your_table`;
+  return new Response(JSON.stringify(result), {
+    status: 200,
+    headers: { 'Content-Type': 'application/json' },
+  });
 }

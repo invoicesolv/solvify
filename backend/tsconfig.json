@@ -3,12 +3,14 @@
     "target": "es6",
     "module": "commonjs",
     "outDir": "./dist",
-    "types": ["json-schema"],
+    "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
-    "typeRoots": ["./node_modules/@types", "./src/types"], // Ensure custom types and .env are recognized
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "allowJs": false // Ensure only TypeScript is used
+    "types": ["node", "json-schema"]
   },
-  "include": ["src", ".env"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
 }

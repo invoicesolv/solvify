@@ -1,13 +1,5 @@
-import { Pool } from 'pg';
-import dotenv from 'dotenv';
+import { neon } from '@neondatabase/serverless';
 
-dotenv.config();
+const sql = neon(process.env.DATABASE_URL);
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
-});
-
-export const query = (text, params) => pool.query(text, params);
+export { sql };
