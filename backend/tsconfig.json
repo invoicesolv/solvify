@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "types": ["json-schema"],
+    "strict": true,
+    "esModuleInterop": true,
+    "typeRoots": ["./node_modules/@types", "./src/types"], // Ensure custom types and .env are recognized
+    "resolveJsonModule": true,
+    "allowJs": false // Ensure only TypeScript is used
+  },
+  "include": ["src", ".env"]
+}

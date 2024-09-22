@@ -1,0 +1,62 @@
+/* eslint-disable */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* eslint-enable */
+
+@font-face {
+  font-family: 'Gotham Black';
+  src: url('/fonts/gotham-black-webfont.eot');
+  src: url('/fonts/gotham-black-webfont.eot?#iefix') format('embedded-opentype'),
+       url('/fonts/gotham-black-webfont.woff') format('woff'),
+       url('/fonts/gotham-black-webfont.ttf') format('truetype'),
+       url('/fonts/gotham-black-webfont.svg#gotham_blackregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-gotham-black: 'Gotham Black', sans-serif;
+}
+
+body {
+  /* background-color: theme('colors.brand-dark'); */
+  background-color: #1a202c; /* Use a direct color value instead */
+  color: white;
+  font-family: var(--font-gotham-black);
+  font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-gotham-black);
+  font-weight: normal; /* or 900 if you want it extra bold */
+}
+
+button, .button {
+  font-family: var(--font-gotham-black);
+  font-weight: 500;
+}
+
+input, textarea, select {
+  font-family: var(--font-gotham-black);
+  font-weight: 300;
+}
+
+.btn-primary {
+  /* background-color: theme('colors.brand-accent'); */
+  background-color: #34A798; /* Use a direct color value instead */
+  color: white;
+}
+
+.btn-primary:hover {
+  /* background-color: theme('colors.brand-hover'); */
+  background-color: #2B8072; /* Use a direct color value instead */
+}
+
+/* Add a utility class for font-weight 300 */
+.font-light {
+  font-weight: 300 !important;
+}
+
+/* ... (rest of your existing styles) ... */

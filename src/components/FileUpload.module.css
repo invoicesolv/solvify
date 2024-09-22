@@ -1,0 +1,22 @@
+.fileInput {
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.tableContainer {
+  margin-top: 20px;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.tableContainer th, .tableContainer td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.tableContainer th {
+  background-color: #f4f4f4;
+}
